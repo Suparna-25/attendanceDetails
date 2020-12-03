@@ -1,0 +1,46 @@
+package com.cg.attendance.services;
+
+import java.util.List;
+import com.cg.attendance.domain.Employee;
+import com.cg.attendance.domain.AttendanceDetail;
+
+/**
+ * This interface is a structure for EmployeeService
+ * @author Suparna Arya & Aswitha
+ *
+ */
+public interface IEmployeeService {
+	 /**
+    * This method is used to view Employee using empId
+    * @param employee
+    */
+	public Employee viewEmployeeById(long empId);//{inbuilt repo method}
+	/**
+	 * This method add employee
+	 * @param employee
+	 * @return 
+	 */
+	public Employee addEmployee(Employee employee);//{inbuilt repo method}
+	
+	/**
+	 * This method is used to view Employees working under a supervisor using supervisor id
+	 * @param supervisiorId
+	 * @return List of Employees
+	 */
+	public List<Employee> viewEmployeesUnderSupervisior(long supervisiorId);
+	
+	/**
+	 * This method is used to view AttendanceDetails using employeeId
+	 * @param empId
+	 * @return List of AttendanceDetails
+	 */
+	public List<AttendanceDetail> viewAttendanceByEmpId(long empId);//{inbuilt repo method}
+	/**
+	 * This method validate SupervisorId with condition applied
+	 * @param emp
+	 * @param supervisiorId
+	 * @return String of message
+	 */
+
+	public String validateSupervisior(Employee emp, long supervisiorId);
+}
