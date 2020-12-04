@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.attendance.domain.Employee;
+import com.cg.attendance.entities.Employee;
 import com.cg.attendance.services.EmployeeService;
 import com.cg.attendance.services.MapValidationErrorService;
 
@@ -24,13 +24,13 @@ public class EmployeeController {
 	@Autowired
 	private MapValidationErrorService mapValidateErrorService;
 
-	@PostMapping("")
-	//add /add path
-	public ResponseEntity<?> createNewProject(@Valid @RequestBody Employee employee, BindingResult result) {
+	@PostMapping("/add")
+		public ResponseEntity<?> createNewProject(@Valid @RequestBody Employee employee, BindingResult result) {
 		ResponseEntity<?> errorMap = mapValidateErrorService.mapValidationError(result);
 		if (errorMap != null)
 			return errorMap;
 		Employee newEmployee = empService.addEmployee(employee);
+		
 		return new ResponseEntity<Employee>(newEmployee, HttpStatus.CREATED);
 	
 	}

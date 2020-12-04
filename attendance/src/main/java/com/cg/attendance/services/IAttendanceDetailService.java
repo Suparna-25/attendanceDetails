@@ -1,6 +1,6 @@
 package com.cg.attendance.services;
 
-import com.cg.attendance.domain.AttendanceDetail;
+import com.cg.attendance.entities.AttendanceDetail;
 
 /**
  * This Interface holds the structure for AttendanceDetailsService class

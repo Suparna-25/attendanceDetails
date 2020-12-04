@@ -2,7 +2,7 @@ package com.cg.attendance.services;
 
 import org.springframework.stereotype.Service;
 
-import com.cg.attendance.domain.AttendanceDetail;
+import com.cg.attendance.entities.AttendanceDetail;
 import com.cg.attendance.exception.AttendanceIDException;
 import com.cg.attendance.repositories.AttendanceDetailRepository;
 
