@@ -10,10 +10,8 @@ import com.cg.attendance.entities.AttendanceDetail;
  *
  */
 @Repository
-public interface AttendanceDetailRepository extends CrudRepository<AttendanceDetail,Integer>
+public interface AttendanceDetailRepository extends CrudRepository<AttendanceDetail, Integer>
 {
-	// TODO ALL THE CRUD OPERATIONS ON ATTENDANCE DETAILS BEAN
-		public AttendanceDetail findByAttendanceId(Long attendanceId);
-	
+			public AttendanceDetail findByAttendanceId(Integer attendanceId);
 
 }

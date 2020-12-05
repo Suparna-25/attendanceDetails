@@ -2,18 +2,18 @@ package com.cg.attendance.exception;
 
 public class EmployeeIdExceptionResponse {
 
-	private Long empId;
+	private String empId;
 
-	public EmployeeIdExceptionResponse(String message) {
+	public EmployeeIdExceptionResponse(String empId) {
 		super();
-		
+		this.empId = empId;
 	}
 
-	public Long getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(Long empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 

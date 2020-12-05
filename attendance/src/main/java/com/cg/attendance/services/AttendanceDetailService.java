@@ -1,5 +1,7 @@
 package com.cg.attendance.services;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.attendance.entities.AttendanceDetail;
@@ -8,50 +10,38 @@ import com.cg.attendance.repositories.AttendanceDetailRepository;
 
 @Service
 public class AttendanceDetailService implements IAttendanceDetailService {
+	@Autowired
 	private AttendanceDetailRepository attendanceRepo;
 
 	@Override
-	public void addAttendanceDetail(AttendanceDetail attendance) {
-		attendanceRepo.save(attendance);
+	public AttendanceDetail addAttendanceDetail(AttendanceDetail attendance) {
+		
+		return attendanceRepo.save(attendance);
 
 	}
 
 	@Override
-	public AttendanceDetail updateAttendanceStatus(Long attendanceId, String status) {
-		AttendanceDetail newAttendance= null;
-		try {
-		    newAttendance = attendanceRepo.findByAttendanceId(attendanceId);
-			if(newAttendance.getStatus().equalsIgnoreCase("pending"))
-		               newAttendance.setStatus(status);
-			if (newAttendance == null) {
-				throw new AttendanceIDException("No attendance with attendance id " + attendanceId + " exist");
-				}	
-		} catch (Exception ex) {
-			
-			System.out.println(ex);			
-		}
+	public AttendanceDetail updateAttendanceStatus(Integer attendanceId, String status) {
+				AttendanceDetail  attendance = attendanceRepo.findByAttendanceId(attendanceId);
+				AttendanceDetail newAttendance=attendance;
+				if(newAttendance==null)
+				{
+					throw new AttendanceIDException("No attenndance is added for attendance id"+attendanceId);
+				}
+			    if(newAttendance.getStatus().equalsIgnoreCase("pending"))
+		        newAttendance.setStatus(status);
+			    BeanUtils.copyProperties(attendance, newAttendance, "attendanceId");		
 		return attendanceRepo.save(newAttendance);
 	}
 
 	@Override
-	public void setAttendanceType(int choice, AttendanceDetail attendance) {
-		switch (choice) {
-		case 1:
-			attendance.setTypeId("Forgot Card");
-			break;
-		case 2:
-			attendance.setTypeId("Client Location");
-			break;
-		case 3:
-			attendance.setTypeId("Working From Home");
-			break;
-		case 4:
-			attendance.setTypeId("Business Travel");
-			break;
-		default:
-			attendance.setTypeId("Missed Both Swipes");
-
+	public AttendanceDetail viewAttendanceByAttendanceId(Integer attendanceId) {
+		AttendanceDetail newAttendance=attendanceRepo.findByAttendanceId(attendanceId);
+		if(newAttendance==null)
+		{
+			throw new AttendanceIDException("No attenndance is added for attendance id"+attendanceId);
 		}
+		return newAttendance;
 	}
 
 }

@@ -24,53 +24,52 @@ public class AttendanceDetail {
 	// attendanceId is primary key for attendance detail entity
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) // Creates auto generated values for attendanceId
-	private int attendanceId;
-	@JsonFormat(pattern = "HH:mm aa")
+	private Integer attendanceId;
+	@JsonFormat(pattern = "HH:mm")
 	private Date inTime;
-	@JsonFormat(pattern = "HH:mm aa")
+	@JsonFormat(pattern = "HH:mm")
 	private Date outTime;
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date date;
-	@NotNull(message = "Reason is required")
+	private Date attendanceDate;
+	//@NotNull(message = "Reason is required")
 	private String reason;
-	@NotNull(message = "Type Id is required")
+	//@NotNull(message = "Type Id is required")
 	private String typeId;
-	@NotNull(message = "Status: Pending")
+	//@NotNull(message = "Status: Pending")
 	private String status;
 
 	// Attendance details has many to one relationship with Employees entity using
 	// empId
 	@ManyToOne
-	@JoinColumn(name = "empId")
+	@JoinColumn(name = "id")
 	private Employee employee;
 
 	
 	// Default constructor for employee bean
 	public AttendanceDetail() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	
 	// Parameterized constructor for employee bean
-	public AttendanceDetail(int attendanceId, Date inTime, Date outTime, Date date, String reason, String typeId,
+	public AttendanceDetail(Integer attendanceId, Date inTime, Date outTime, Date attendanceDate, String reason, String typeId,
 			String status) {
 		super();
 		this.attendanceId = attendanceId;
 		this.inTime = inTime;
 		this.outTime = outTime;
-		this.date = date;
+		this.attendanceDate=attendanceDate;
 		this.reason = reason;
 		this.typeId = typeId;
 		this.status = status;
 	}
 
 	// setters and getters for Attendance details to access outside this class
-	public int getAttendanceId() {
+	public Integer getAttendanceId() {
 		return attendanceId;
 	}
 
-	public void setAttendanceId(int attendanceId) {
+	public void setAttendanceId(Integer attendanceId) {
 		this.attendanceId = attendanceId;
 	}
 
@@ -91,11 +90,11 @@ public class AttendanceDetail {
 	}
 
 	public Date getDate() {
-		return date;
+		return attendanceDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(Date attendanceDate) {
+		this.attendanceDate=attendanceDate;
 	}
 
 	public String getReason() {
@@ -135,8 +134,11 @@ public class AttendanceDetail {
 	 */
 	@Override
 	public String toString() {
-		return "AttendanceDetails [attendanceId=" + attendanceId + ", inTime=" + inTime + ", outTime=" + outTime
-				+ ", date=" + date + ", reason=" + reason + ", typeId=" + typeId + ", status=" + status + ", employee="
+		return "AttendanceDetail [attendanceId=" + attendanceId + ", inTime=" + inTime + ", outTime=" + outTime
+				+ ", date=" + attendanceDate + ", reason=" + reason + ", typeId=" + typeId + ", status=" + status + ", employee="
 				+ employee + "]";
 	}
+
+	
+	
 }

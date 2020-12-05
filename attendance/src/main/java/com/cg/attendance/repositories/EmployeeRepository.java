@@ -19,6 +19,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 	
     Employee findByEmpId(String empId);
+    
     @Query("SELECT a FROM employees a where a.supervisiorId =:supervisiorId ")
 	List<Employee> findEmployeesUnderSupervisior(@Param("supervisiorId") String supervisiorId);
 }

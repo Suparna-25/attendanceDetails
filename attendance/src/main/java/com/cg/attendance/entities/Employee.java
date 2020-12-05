@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -55,7 +55,7 @@ public class Employee {
 
 	
 
-	public Employee(String empId, String empName, String phoneNumber, String empEmail, String empLocation, String supervisiorId) {
+	public Employee(String empId, String empName, String phoneNumber, String empEmail, String empLocation, String supervisiorId,List<AttendanceDetail> attendance) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -63,6 +63,7 @@ public class Employee {
 		this.empEmail = empEmail;
 		this.empLocation = empLocation;
 		this.supervisiorId = supervisiorId;
+		this.attendance=attendance;
 	}
 
 

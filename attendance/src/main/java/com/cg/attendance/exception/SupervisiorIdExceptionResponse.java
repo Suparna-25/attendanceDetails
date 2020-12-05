@@ -2,18 +2,18 @@ package com.cg.attendance.exception;
 
 public class SupervisiorIdExceptionResponse {
 
-	private Long supervisiorId;
+	private String supervisiorId;
 
-	public SupervisiorIdExceptionResponse(String message) {
+	public SupervisiorIdExceptionResponse(String supervisiorId) {
 		super();
-		
+		this.supervisiorId = supervisiorId;
 	}
 
-	public Long getSupervisiorId() {
+	public String getSupervisiorId() {
 		return supervisiorId;
 	}
 
-	public void setSupervisiorId(Long supervisiorId) {
+	public void setSupervisiorId(String supervisiorId) {
 		this.supervisiorId = supervisiorId;
 	}
 

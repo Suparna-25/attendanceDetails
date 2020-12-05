@@ -12,21 +12,21 @@ public interface IAttendanceDetailService {
 	/**
 	 * This method is used to add attendance details
 	 * @param attendance
+	 * @return 
 	 */
-	public void addAttendanceDetail(AttendanceDetail attendance);//{inbuilt repo method}
+	public AttendanceDetail addAttendanceDetail(AttendanceDetail attendance);
     /**
      * This method is used to update AttendanceDetails status from pending to approve/reject using attendance id
      * @param attendance
      * @param status
      * @return 
      */
-	public AttendanceDetail updateAttendanceStatus(Long attendanceId, String status);//{inbuilt repo method}
+	public AttendanceDetail updateAttendanceStatus(Integer attendanceId,String status);
 	/**
-	 * This method is used to set the attendanceType according to the user's choice
-	 * @param choice
-	 * @param attendance
+	 * This method will show attendance details for the provided attendanceId
+	 * @param attendanceId
+	 * @return AttendanceDetail object
 	 */
-	public void setAttendanceType(int choice, AttendanceDetail attendance);
-
+    public AttendanceDetail viewAttendanceByAttendanceId(Integer attendanceId);
 }
 

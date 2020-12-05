@@ -15,7 +15,7 @@ public interface IEmployeeService {
     * This method is used to view Employee using empId
     * @param employee
     */
-	public Employee viewEmployeeById(String empId);
+	public Employee viewEmployeeByEmpId(String empId);
 	/**
 	 * This method add employee
 	 * @param employee
