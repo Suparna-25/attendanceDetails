@@ -27,7 +27,7 @@ class AttendanceDetailControllerTest {
 	AttendanceDetailService service;
 
 	@Test
-	public void viewAttendanceByIdTest() {
+    void viewAttendanceByIdTest() {
 
 		Employee employee = new Employee("46045170", "Suparna Arya", "7980064539", "suparna.arya@capgemini.com",
 				"Bangalore", "46045157", null);
@@ -42,7 +42,7 @@ class AttendanceDetailControllerTest {
 	}
 
 	@Test
-	public void updateAttendanceStatusTest() {
+	void updateAttendanceStatusTest() {
 
 		Employee employee = new Employee("46045170", "Suparna Arya", "7980064539", "suparna.arya@capgemini.com",
 				"Bangalore", "46045157", null);

@@ -20,8 +20,8 @@ import com.cg.attendance.exception.AttendanceIDException;
 import com.cg.attendance.services.AttendanceDetailService;
 import com.cg.attendance.services.MapValidationErrorService;
 /**
- * This java class handle all the requests of the 
- * @author Suparna
+ * This java class handle all  the web requests of the Attendance Detail endpoint
+ * @author Suparna Arya
  *
  */
 @RestController

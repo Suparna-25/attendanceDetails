@@ -9,6 +9,7 @@ import com.cg.attendance.dto.AttendanceDto;
 import com.cg.attendance.entities.AttendanceDetail;
 import com.cg.attendance.entities.Employee;
 import com.cg.attendance.exception.AttendanceIDException;
+import com.cg.attendance.exception.EmployeeIDException;
 import com.cg.attendance.repositories.AttendanceDetailRepository;
 /**
  * Attendance Detail Service Interface methods are implemented here.
@@ -29,13 +30,20 @@ public class AttendanceDetailService implements IAttendanceDetailService {
 		try {
 
 			Employee emp = empService.viewEmployeeByEmpId(attendanceDto.getEmployeeId());
-
+            if(emp==null)
+            {
+            	throw new EmployeeIDException("No employee exist with id "+attendanceDto.getEmployeeId());
+            }
 			AttendanceDetail attendance = new AttendanceDetail(attendanceDto.getInTime(), attendanceDto.getOutTime(),
 					attendanceDto.getAttendanceDate(), attendanceDto.getReason(), attendanceDto.getTypeId(),
 					attendanceDto.getStatus(), emp);
 
 			return attendanceRepo.save(attendance);
-		} catch (Exception ex) {
+		}catch(EmployeeIDException ex)
+		{
+			throw new EmployeeIDException("No employee exist with id "+attendanceDto.getEmployeeId());
+		}
+		catch (Exception ex) {
 			throw new AttendanceIDException("attendance id  is already present");
 		}
 

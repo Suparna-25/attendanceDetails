@@ -23,7 +23,9 @@ import com.cg.attendance.services.MapValidationErrorService;
 @RestController
 public class EmployeeController {
 	/**
-	 * This is 
+	 * This java class handle all  the web requests of the Attendance Detail endpoint
+	 * @author Suparna Arya
+	 *
 	 */
 	@Autowired
 	private EmployeeService empService;

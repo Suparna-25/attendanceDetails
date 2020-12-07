@@ -2,7 +2,7 @@ package com.cg.attendance.exception;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 /**
- *  This is Attendance Id custom exception
+ *  This is Attendance Id custom exception class
  * @author Suparna Arya
  *
  */

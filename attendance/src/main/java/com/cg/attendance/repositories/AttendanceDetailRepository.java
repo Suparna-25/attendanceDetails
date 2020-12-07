@@ -9,7 +9,7 @@ import com.cg.attendance.entities.AttendanceDetail;
  * This a Attendance Details repository that performs all the crud operation on
  * employee attendance details
  * 
- * @author Suparna Arya & Aswitha
+ * @author Aswitha
  *
  */
 @Repository

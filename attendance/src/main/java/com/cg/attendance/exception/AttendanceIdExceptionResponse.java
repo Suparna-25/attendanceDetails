@@ -1,6 +1,6 @@
 package com.cg.attendance.exception;
 /**
- * This class oly retrieve Attendance Id and throws exception for it.
+ * This class only retrieve Attendance Id and throws exception for it.
  * @author Suparna Arya
  *
  */

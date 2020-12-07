@@ -2,12 +2,14 @@ package com.cg.attendance.services;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.attendance.dto.AttendanceDto;
 import com.cg.attendance.entities.AttendanceDetail;
 import com.cg.attendance.entities.Employee;
+import com.cg.attendance.exception.EmployeeIDException;
 import com.cg.attendance.repositories.AttendanceDetailRepository;
+import com.cg.attendance.repositories.EmployeeRepository;
 
 @SpringBootTest
 class AttendanceDetailServiceTest {
@@ -25,12 +29,13 @@ class AttendanceDetailServiceTest {
 
 	@Mock
 	AttendanceDetailRepository repo;
-
+	@Mock
+	EmployeeRepository empRepo;
 	@Mock
 	private EmployeeService empService;
 
 	@Test
-	public void addAttendanceDetailTest() {
+	void addAttendanceDetailTest() {
 
 		Employee employee = new Employee("46045170", "Suparna Arya", "7980064539", "suparna.arya@capgemini.com",
 				"Bangalore", "46045157", null);
@@ -45,19 +50,19 @@ class AttendanceDetailServiceTest {
 		AttendanceDetail savedObj = service.addAttendanceDetail(attendanceDto);
 
 		assertNotNull(savedObj);
-		assertEquals(savedObj.getStatus(), "APPLIED");
-		assertEquals(savedObj.getInTime(), "10:10");
-		assertEquals(savedObj.getOutTime(), "14:30");
-		assertEquals(savedObj.getAttendanceDate(), null);
-		assertEquals(savedObj.getReason(), "");
-		assertEquals(savedObj.getTypeId(), "");
+		assertEquals("APPLIED",savedObj.getStatus());
+		assertEquals("10:10",savedObj.getInTime());
+		assertEquals( "14:30",savedObj.getOutTime());
+		assertEquals(null,savedObj.getAttendanceDate());
+		assertEquals("",savedObj.getReason());
+		assertEquals("",savedObj.getTypeId());
 		
 		
 
 	}
 
 	@Test
-	public void updateAttendanceStatusTest() {
+	void updateAttendanceStatusTest() {
 
 		Employee employee = new Employee("46045170", "Suparna Arya", "7980064539", "suparna.arya@capgemini.com",
 				"Bangalore", "46045157", null);
@@ -68,12 +73,12 @@ class AttendanceDetailServiceTest {
 
 		AttendanceDetail updateObj = service.updateAttendanceStatus("1", "REJECT");
 
-		assertEquals(attendance.getStatus(), "REJECT");
+		assertEquals("REJECT",attendance.getStatus());
 
 	}
 
 	@Test
-	public void viewAttendanceByAttendanceIdTest() {
+    void viewAttendanceByAttendanceIdTest() {
 
 		Employee employee = new Employee("46045170", "Suparna Arya", "7980064539", "suparna.arya@capgemini.com",
 				"Bangalore", "46045157", null);
@@ -85,7 +90,14 @@ class AttendanceDetailServiceTest {
 		AttendanceDetail savedObj = service.viewAttendanceByAttendanceId("1");
 
 		assertNotNull(savedObj);
-		assertEquals(savedObj.getStatus(), "APPLIED");
+		assertEquals("APPLIED",savedObj.getStatus());
 
+	}
+	@Test 
+	void EmployeeNotFoundException() throws Exception{
+		AttendanceDto attendanceDto = new AttendanceDto("10:10", "14:30", null, null, "", "", "APPLIED");
+		BDDMockito.given(empRepo.findByEmpId("4690345")).willThrow(new EmployeeIDException());
+		assertThrows(EmployeeIDException.class, ()->service.addAttendanceDetail(attendanceDto));
+	
 	}
 }

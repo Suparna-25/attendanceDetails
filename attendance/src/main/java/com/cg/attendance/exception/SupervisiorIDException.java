@@ -2,7 +2,11 @@ package com.cg.attendance.exception;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
-
+/**
+ *  This is Supervisior Id custom exception class
+ * @author Suparna Arya
+ *
+ */
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class SupervisiorIDException extends RuntimeException {
 

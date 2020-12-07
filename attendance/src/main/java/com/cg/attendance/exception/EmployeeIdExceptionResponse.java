@@ -1,5 +1,9 @@
 package com.cg.attendance.exception;
-
+/**
+ * This class only retrieve EmpId and throws exception for it.
+ * @author Suparna Arya
+ *
+ */
 public class EmployeeIdExceptionResponse {
 
 	private String empId;
