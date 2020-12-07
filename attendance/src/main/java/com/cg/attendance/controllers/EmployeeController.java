@@ -1,5 +1,7 @@
 package com.cg.attendance.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,43 +19,51 @@ import com.cg.attendance.entities.AttendanceDetail;
 import com.cg.attendance.entities.Employee;
 import com.cg.attendance.services.EmployeeService;
 import com.cg.attendance.services.MapValidationErrorService;
-import java.util.List;
-
 
 @RestController
-@RequestMapping("/api/attendanceapplication")
 public class EmployeeController {
+	/**
+	 * This is 
+	 */
 	@Autowired
 	private EmployeeService empService;
 	@Autowired
 	private MapValidationErrorService mapValidateErrorService;
 
-	@PostMapping("/add")
-		public ResponseEntity<?> addNewEmployee(@Valid @RequestBody Employee employee, BindingResult result) {
+	@PostMapping("/employee/add")
+	public ResponseEntity<?> addNewEmployee(@Valid @RequestBody Employee employee, BindingResult result) throws Exception {
 		ResponseEntity<?> errorMap = mapValidateErrorService.mapValidationError(result);
 		if (errorMap != null)
 			return errorMap;
 		Employee newEmployee = empService.addEmployee(employee);
-		
+
 		return new ResponseEntity<Employee>(newEmployee, HttpStatus.CREATED);
+
+	}
+
+	@GetMapping
+	@RequestMapping("/employee/{empId}")
+	public ResponseEntity<?> getEmployeeByEmpId(@PathVariable String empId) {
+		return new ResponseEntity<Employee>(empService.viewEmployeeByEmpId(empId), HttpStatus.OK);
+	}
+
 	
-	}
 	@GetMapping
-	@RequestMapping("/{empId}")
-	public ResponseEntity<?> getEmployeeByEmpId(@PathVariable String empId)
-	{
-		return new ResponseEntity<Employee>(empService.viewEmployeeByEmpId(empId),HttpStatus.OK);
+	@RequestMapping("/employee/attendance/{empId}")
+	public ResponseEntity<List<AttendanceDetail>> getAttendanceByEmpId(@PathVariable String empId) {
+
+		List<AttendanceDetail> attendanceList = empService.viewAttendanceByEmpId(empId);
+
+		return new ResponseEntity<List<AttendanceDetail>>(attendanceList, HttpStatus.OK);
 	}
+
+	
+	
 	@GetMapping
-	@RequestMapping("/supervisior-{supervisiorId}")
-	public ResponseEntity<List<Employee>> getEmployeeUnderSupervisior(@PathVariable String supervisiorId)
-	{
-		return new ResponseEntity<List<Employee>>(empService.viewEmployeesUnderSupervisior(supervisiorId),HttpStatus.OK);
+	@RequestMapping("/supervisior/{supervisiorId}")
+	public ResponseEntity<List<Employee>> getEmployeeUnderSupervisior(@PathVariable String supervisiorId) {
+		return new ResponseEntity<List<Employee>>(empService.viewEmployeesUnderSupervisior(supervisiorId),
+				HttpStatus.OK);
 	}
-	@GetMapping
-	@RequestMapping("/view-{empId}")
-	public ResponseEntity<List<AttendanceDetail>> getAttendanceByEmpId(@PathVariable String empId)
-	{
-		return new ResponseEntity<List<AttendanceDetail>>(empService.viewAttendanceByEmpId(empId),HttpStatus.OK);
-	}
+
 }

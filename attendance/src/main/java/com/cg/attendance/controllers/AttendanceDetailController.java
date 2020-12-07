@@ -14,39 +14,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.attendance.dto.AttendanceDto;
 import com.cg.attendance.entities.AttendanceDetail;
 import com.cg.attendance.exception.AttendanceIDException;
 import com.cg.attendance.services.AttendanceDetailService;
 import com.cg.attendance.services.MapValidationErrorService;
+/**
+ * This java class handle all the requests of the 
+ * @author Suparna
+ *
+ */
+@RestController
+public class AttendanceDetailController {
 
+	@Autowired
+	private AttendanceDetailService attendanceService;
 
-	@RestController
-	@RequestMapping("/api/attendanceapplication")
-	public class AttendanceDetailController {
-		@Autowired
-		private AttendanceDetailService attendanceService;
-		@Autowired
-		private MapValidationErrorService mapValidateErrorService;
+	@Autowired
+	private MapValidationErrorService mapValidateErrorService;
 
-		@PostMapping("/add-attendance")
-			public ResponseEntity<?> addNewAttendance(@Valid @RequestBody AttendanceDetail attendance, BindingResult result)throws AttendanceIDException {
-			ResponseEntity<?> errorMap = mapValidateErrorService.mapValidationError(result);
-			if (errorMap != null)
-				return errorMap;
-			AttendanceDetail newAttendance= attendanceService.addAttendanceDetail(attendance);
-			return new ResponseEntity<AttendanceDetail>(newAttendance, HttpStatus.CREATED);
-		
-		}
-		
-		@PutMapping("/update-{attendanceId}")
-		public ResponseEntity<?> updateAttendanceByStatus(@PathVariable Integer attendanceId,String status)throws AttendanceIDException
-		{
-			return new ResponseEntity<AttendanceDetail>(attendanceService.updateAttendanceStatus(attendanceId, status),HttpStatus.OK);
-		}
-		
-		@GetMapping("/attendance-{attendanceId}")
-		public ResponseEntity<?> viewAttendanceById(@PathVariable Integer attendanceId)throws AttendanceIDException
-		{
-			return new ResponseEntity<AttendanceDetail>(attendanceService.viewAttendanceByAttendanceId(attendanceId),HttpStatus.OK);
-		}
+	@GetMapping
+	@RequestMapping("/attendance/{id}")
+	public ResponseEntity<?> viewAttendanceById(@PathVariable String id) throws AttendanceIDException {
+		return new ResponseEntity<AttendanceDetail>(attendanceService.viewAttendanceByAttendanceId(id), HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/attendance/add")
+	public ResponseEntity<?> addNewAttendance(@Valid @RequestBody AttendanceDto attendance, BindingResult result)
+			throws AttendanceIDException {
+		ResponseEntity<?> errorMap = mapValidateErrorService.mapValidationError(result);
+		if (errorMap != null)
+			return errorMap;
+		AttendanceDetail newAttendance = attendanceService.addAttendanceDetail(attendance);
+		return new ResponseEntity<AttendanceDetail>(newAttendance, HttpStatus.CREATED);
+
+	}
+
+	@PutMapping("/attendance/update/{id}/{updateType}")
+	public ResponseEntity<?> updateAttendanceByStatus(@PathVariable String id, @PathVariable String updateType) throws AttendanceIDException {
+		return new ResponseEntity<AttendanceDetail>(attendanceService.updateAttendanceStatus(id, updateType), HttpStatus.OK);
+
+	}
+
 }

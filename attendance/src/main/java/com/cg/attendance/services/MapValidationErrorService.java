@@ -8,7 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-
+/**
+ * This class map all the validation error 
+ * @author Suparna Arya
+ *
+ */
 @Service
 public class MapValidationErrorService {
 

@@ -10,7 +10,6 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 @RestController
 public class CustomResponseEntityExceptionHandler{
-	
 	@ExceptionHandler
 	public final ResponseEntity<Object> handleEmployeeIdException(EmployeeIDException ex, WebRequest request)
 	{
@@ -25,6 +24,12 @@ public class CustomResponseEntityExceptionHandler{
 		return new ResponseEntity<Object>(exceptionResponse,HttpStatus.BAD_REQUEST);
 				
 	}
-	
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleAttendanceIdException(AttendanceIDException ex, WebRequest request)
+	{
+		AttendanceIdExceptionResponse exceptionResponse=new AttendanceIdExceptionResponse(ex.getMessage());
+		return new ResponseEntity<Object>(exceptionResponse,HttpStatus.BAD_REQUEST);
+				
+	}
 
 }

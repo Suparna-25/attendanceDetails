@@ -1,8 +1,5 @@
 package com.cg.attendance.services;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,11 @@ import com.cg.attendance.entities.Employee;
 import com.cg.attendance.exception.EmployeeIDException;
 import com.cg.attendance.exception.SupervisiorIDException;
 import com.cg.attendance.repositories.EmployeeRepository;
-
+/**
+ * This class implement all the Employee Service Interface methods
+ * @author Suparna Arya
+ *
+ */
 @Service
 public class EmployeeService implements IEmployeeService {
 	@Autowired
@@ -30,19 +31,19 @@ public class EmployeeService implements IEmployeeService {
 
 	@Override
 	public Employee addEmployee(Employee employee) {
-		
+		Employee emp=null;
 		try {
 			if (employee.getEmpId().equals(employee.getSupervisiorId())) {
 				throw new SupervisiorIDException("Employee can't be its own Supervisior");
 			}
-			return empRepo.save(employee);
+					 emp= empRepo.save(employee);
+						return emp;
 		} catch (SupervisiorIDException e) {
 			throw new SupervisiorIDException("Employee can't be its own Supervisior");
 		} catch (Exception e) {
 			throw new EmployeeIDException("Employee id " + employee.getEmpId() + " already available");
 		}
 	}
-
 	@Override
 	public List<Employee> viewEmployeesUnderSupervisior(String supervisiorId) {
 		List<Employee> employee = empRepo.findEmployeesUnderSupervisior(supervisiorId);
@@ -55,8 +56,7 @@ public class EmployeeService implements IEmployeeService {
 	@Override
 	public List<AttendanceDetail> viewAttendanceByEmpId(String empId) {
 		Employee emp = viewEmployeeByEmpId(empId);
-		System.out.println(emp.getEmpId());
-		if (emp == null) {
+			if (emp == null) {
 			throw new EmployeeIDException("No attendance with employee id as " + empId + " exists");
 		}
 		 
