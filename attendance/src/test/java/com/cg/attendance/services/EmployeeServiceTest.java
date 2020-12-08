@@ -37,7 +37,7 @@ class EmployeeServiceTest {
 				"Bangalore", "46045157", null);
 		when(empRepo.findByEmpId(any(String.class))).thenReturn(employee);
 
-		Employee fetchedObj = service.viewEmployeeByEmpId("46045157");
+		Employee fetchedObj = service.viewEmployeeByEmpId("46045170");
 
 		assertEquals(fetchedObj.getEmpEmail(), employee.getEmpEmail());
 
